@@ -2,8 +2,9 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { readdirSync, readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs'
 import { join } from 'path'
+import matter from 'gray-matter'
 
-// Plugin: merges public/content/projects/*.json → public/content/projects.json
+// Plugin: merges public/content/projects/*.md → public/content/projects.json
 function aggregateProjects() {
   return {
     name: 'aggregate-projects',
@@ -14,13 +15,14 @@ function aggregateProjects() {
       if (!existsSync(dir)) mkdirSync(dir, { recursive: true })
 
       const files = existsSync(dir)
-        ? readdirSync(dir).filter(f => f.endsWith('.json'))
+        ? readdirSync(dir).filter(f => f.endsWith('.md'))
         : []
 
       const projects = files.map(file => {
         try {
-          const data = JSON.parse(readFileSync(join(dir, file), 'utf-8'))
-          return { ...data, slug: data.slug || file.replace('.json', '') }
+          const raw = readFileSync(join(dir, file), 'utf-8')
+          const { data } = matter(raw)
+          return { ...data, slug: data.slug || file.replace('.md', '') }
         } catch { return null }
       }).filter(Boolean).sort((a, b) => (a.order || 0) - (b.order || 0))
 
