@@ -242,3 +242,12 @@
   .techStrip { margin: 0 -20px 60px; }
   .techItem:first-child { padding-left: 20px; }
 }
+
+.btnCV {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 0.88rem; font-weight: 600; color: #fff;
+  padding: 11px 22px; background: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius); transition: all var(--transition);
+}
+.btnCV:hover { background: var(--accent-2); border-color: var(--accent-2); transform: translateY(-1px); }

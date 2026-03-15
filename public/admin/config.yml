@@ -21,7 +21,7 @@ collections:
       - { label: "Short description", name: "description", widget: "text" }
       - { label: "Full description", name: "longDescription", widget: "markdown", required: false }
       - { label: "Cover image", name: "image", widget: "image", required: false }
-      - { label: "Live URL", name: "liveUrl", widget: "string", required: false, hint: "Link to the live site (optional)" }
+      - { label: "Live URL", name: "liveUrl", widget: "string", required: false }
       - { label: "GitHub URL", name: "githubUrl", widget: "string", required: false }
       - { label: "Document (PDF)", name: "document", widget: "file", required: false }
       - { label: "Featured", name: "featured", widget: "boolean", default: false }
@@ -47,3 +47,4 @@ collections:
           - { label: "GitHub", name: "github", widget: "string", required: false }
           - { label: "LinkedIn", name: "linkedin", widget: "string", required: false }
           - { label: "Photo", name: "avatar", widget: "image", required: false }
+          - { label: "CV / Resume (PDF)", name: "cv", widget: "file", required: false, hint: "Upload your CV as a PDF" }

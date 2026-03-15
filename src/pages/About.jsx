@@ -1,5 +1,5 @@
 import { useAbout, useProjects } from '../data/useContent'
-import { Github, Linkedin, Mail, ExternalLink } from 'lucide-react'
+import { Github, Linkedin, Mail, ExternalLink, Download } from 'lucide-react'
 import styles from './About.module.css'
 
 const TECH_COLORS = {
@@ -50,6 +50,11 @@ export default function About() {
             {about?.email && (
               <a href={`mailto:${about.email}`} className={styles.link}>
                 <Mail size={15} /> {about.email}
+              </a>
+            )}
+            {about?.cv && (
+              <a href={about.cv} download className={styles.linkCV}>
+                <Download size={15} /> Download CV
               </a>
             )}
           </div>

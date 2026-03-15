@@ -80,3 +80,13 @@
   .avatar, .avatarPlaceholder { width: 120px; height: 120px; }
   .stats { flex-direction: column; }
 }
+
+.linkCV {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 0.82rem; color: #fff;
+  padding: 7px 14px; background: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius); transition: all var(--transition);
+  font-weight: 500;
+}
+.linkCV:hover { background: var(--accent-2); border-color: var(--accent-2); }

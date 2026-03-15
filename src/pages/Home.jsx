@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { ArrowRight, Github, Linkedin, Mail, ExternalLink } from 'lucide-react'
+import { ArrowRight, Github, Linkedin, Mail, ExternalLink, Download } from 'lucide-react'
 import { useProjects, useAbout } from '../data/useContent'
 import ProjectCard from '../components/ProjectCard'
 import styles from './Home.module.css'
@@ -27,13 +27,17 @@ export default function Home() {
           </h1>
 
           <p className={styles.heroRole}>{about?.role || 'Developer'}</p>
-
           {about?.bio && <p className={styles.heroBio}>{about.bio}</p>}
 
           <div className={styles.heroActions}>
             <Link to="/projects" className={styles.btnPrimary}>
               View projects <ArrowRight size={15} />
             </Link>
+            {about?.cv && (
+              <a href={about.cv} download className={styles.btnCV}>
+                <Download size={15} /> Download CV
+              </a>
+            )}
             {about?.email && (
               <a href={`mailto:${about.email}`} className={styles.btnSecondary}>
                 Contact
@@ -66,15 +70,12 @@ export default function Home() {
           {about?.avatar ? (
             <img src={about.avatar} alt="Daniel Lourenço" className={styles.photo} />
           ) : (
-            <div className={styles.photoPlaceholder}>
-              <span>DL</span>
-            </div>
+            <div className={styles.photoPlaceholder}><span>DL</span></div>
           )}
           <div className={styles.photoGlow} />
         </div>
       </section>
 
-      {/* ── DIVIDER ── */}
       <div className={styles.divider} />
 
       {/* ── PROJECTS ── */}
@@ -102,7 +103,6 @@ export default function Home() {
         ) : (
           <div className={styles.empty}>
             <p>No projects added yet.</p>
-            <p className={styles.emptyHint}>Add your projects at <code>/admin/</code></p>
           </div>
         )}
       </section>
