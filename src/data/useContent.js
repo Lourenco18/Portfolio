@@ -5,14 +5,18 @@ export function useProjects() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    // Support both flat JSON array and folder-based CMS files
     fetch('/content/projects.json')
       .then(r => r.json())
       .then(data => {
-        const sorted = [...data].sort((a, b) => (a.order || 0) - (b.order || 0))
+        const arr = Array.isArray(data) ? data : []
+        const sorted = arr.sort((a, b) => (a.order || 0) - (b.order || 0))
         setProjects(sorted)
         setLoading(false)
       })
-      .catch(() => setLoading(false))
+      .catch(() => {
+        setLoading(false)
+      })
   }, [])
 
   return { projects, loading }

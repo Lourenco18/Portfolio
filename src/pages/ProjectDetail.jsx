@@ -1,171 +1,89 @@
 import { useParams, Link } from 'react-router-dom'
 import { useProjects } from '../data/useContent'
-import { ExternalLink, Github, ArrowLeft, FileText, Calendar, Tag } from 'lucide-react'
+import { ExternalLink, Github, ArrowLeft, FileText } from 'lucide-react'
 import styles from './ProjectDetail.module.css'
 
-const STATUS_COLOR = { 'Live': 'green', 'In Progress': 'amber', 'Archived': 'grey' }
+const TECH_COLORS = {
+  'HTML':       { bg: '#fff4ed', color: '#c2410c' },
+  'CSS':        { bg: '#eff6ff', color: '#1d4ed8' },
+  'JavaScript': { bg: '#fefce8', color: '#92400e' },
+  'React':      { bg: '#f0f9ff', color: '#0369a1' },
+  'NodeJS':     { bg: '#f0fdf4', color: '#15803d' },
+  'C':          { bg: '#faf5ff', color: '#7e22ce' },
+  'Python':     { bg: '#fefce8', color: '#854d0e' },
+  'Supabase':   { bg: '#f0fdf4', color: '#065f46' },
+  'Clerk':      { bg: '#fdf4ff', color: '#86198f' },
+}
 
 export default function ProjectDetail() {
   const { slug } = useParams()
   const { projects, loading } = useProjects()
   const project = projects.find(p => p.slug === slug)
 
-  if (loading) {
-    return (
-      <div className={styles.page}>
-        <div className={styles.inner}>
-          <div className={styles.loadingState}>Carregando...</div>
-        </div>
-      </div>
-    )
-  }
+  if (loading) return <div className={styles.state}>A carregar...</div>
+  if (!project) return (
+    <div className={styles.state}>
+      <p>Projeto não encontrado.</p>
+      <Link to="/projects" className={styles.back}>← Voltar</Link>
+    </div>
+  )
 
-  if (!project) {
-    return (
-      <div className={styles.page}>
-        <div className={styles.inner}>
-          <div className={styles.notFound}>
-            <p>Projeto não encontrado.</p>
-            <Link to="/projects" className={styles.back}>← Voltar aos projetos</Link>
-          </div>
-        </div>
-      </div>
-    )
-  }
-
-  const { title, category, description, longDescription, image, liveUrl, githubUrl, tags, status, year, document } = project
-  const color = STATUS_COLOR[status] || 'grey'
+  const { title, description, longDescription, image, liveUrl, githubUrl, tags = [], status, year, document } = project
 
   return (
     <div className={styles.page}>
-      <div className={styles.inner}>
+      <Link to="/projects" className={styles.backLink}>
+        <ArrowLeft size={14} /> Projetos
+      </Link>
 
-        {/* Back */}
-        <Link to="/projects" className={styles.backLink + ' mono'}>
-          <ArrowLeft size={14} />
-          Projetos
-        </Link>
+      <header className={styles.header}>
+        <div className={styles.meta}>
+          <span className={styles.year}>{year}</span>
+          {status && <span className={styles.status}>{status}</span>}
+        </div>
 
-        {/* Hero */}
-        <header className={styles.header}>
-          <div className={styles.headerMeta}>
-            <span className={`${styles.status} ${styles[color]} mono`}>
-              <span className={styles.statusDot}></span>
-              {status}
-            </span>
-            <span className={styles.category + ' mono'}>{category}</span>
-          </div>
+        <h1 className={styles.title}>{title}</h1>
+        <p className={styles.description}>{description}</p>
 
-          <h1 className={styles.title}>{title}</h1>
-          <p className={styles.description}>{description}</p>
-
-          <div className={styles.headerActions}>
-            {liveUrl && (
-              <a href={liveUrl} target="_blank" rel="noopener noreferrer" className={styles.btnPrimary}>
-                <ExternalLink size={15} />
-                Ver site ao vivo
-              </a>
-            )}
-            {githubUrl && (
-              <a href={githubUrl} target="_blank" rel="noopener noreferrer" className={styles.btnSecondary}>
-                <Github size={15} />
-                Ver código
-              </a>
-            )}
-            {document && (
-              <a href={document} target="_blank" rel="noopener noreferrer" className={styles.btnSecondary}>
-                <FileText size={15} />
-                Documento
-              </a>
-            )}
-          </div>
-        </header>
-
-        {/* Cover image */}
-        {image && (
-          <div className={styles.coverWrap}>
-            <img src={image} alt={title} className={styles.cover} />
+        {tags.length > 0 && (
+          <div className={styles.tags}>
+            {tags.map(t => {
+              const c = TECH_COLORS[t] || { bg: '#f3f4f6', color: '#374151' }
+              return <span key={t} className={styles.tag} style={{ background: c.bg, color: c.color }}>{t}</span>
+            })}
           </div>
         )}
 
-        {/* Content grid */}
-        <div className={styles.grid}>
-          <div className={styles.main}>
-            {longDescription ? (
-              <div className={styles.longDesc}>
-                {longDescription.split('\n\n').map((para, i) => (
-                  <p key={i}>{para}</p>
-                ))}
-              </div>
-            ) : (
-              <div className={styles.longDesc}>
-                <p>{description}</p>
-              </div>
-            )}
-          </div>
-
-          <aside className={styles.sidebar}>
-            {/* Year */}
-            <div className={styles.sideSection}>
-              <div className={styles.sideLabel + ' mono'}>
-                <Calendar size={12} />
-                Ano
-              </div>
-              <p className={styles.sideValue + ' mono'}>{year}</p>
-            </div>
-
-            {/* Status */}
-            <div className={styles.sideSection}>
-              <div className={styles.sideLabel + ' mono'}>
-                Estado
-              </div>
-              <p className={`${styles.sideValue} ${styles[color]} mono`}>{status}</p>
-            </div>
-
-            {/* Tags */}
-            {tags && tags.length > 0 && (
-              <div className={styles.sideSection}>
-                <div className={styles.sideLabel + ' mono'}>
-                  <Tag size={12} />
-                  Tecnologias
-                </div>
-                <div className={styles.tagsList}>
-                  {tags.map(t => (
-                    <span key={t} className={styles.tag + ' mono'}>{t}</span>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Links */}
-            {(liveUrl || githubUrl || document) && (
-              <div className={styles.sideSection}>
-                <div className={styles.sideLabel + ' mono'}>Links</div>
-                <div className={styles.linksList}>
-                  {liveUrl && (
-                    <a href={liveUrl} target="_blank" rel="noopener noreferrer" className={styles.sideLink + ' mono'}>
-                      <ExternalLink size={12} />
-                      Site ao vivo
-                    </a>
-                  )}
-                  {githubUrl && (
-                    <a href={githubUrl} target="_blank" rel="noopener noreferrer" className={styles.sideLink + ' mono'}>
-                      <Github size={12} />
-                      GitHub
-                    </a>
-                  )}
-                  {document && (
-                    <a href={document} target="_blank" rel="noopener noreferrer" className={styles.sideLink + ' mono'}>
-                      <FileText size={12} />
-                      Documento PDF
-                    </a>
-                  )}
-                </div>
-              </div>
-            )}
-          </aside>
+        <div className={styles.actions}>
+          {liveUrl && (
+            <a href={liveUrl} target="_blank" rel="noopener noreferrer" className={`${styles.btn} ${styles.btnPrimary}`}>
+              <ExternalLink size={14} /> Ver site ao vivo
+            </a>
+          )}
+          {githubUrl && (
+            <a href={githubUrl} target="_blank" rel="noopener noreferrer" className={styles.btn}>
+              <Github size={14} /> GitHub
+            </a>
+          )}
+          {document && (
+            <a href={document} target="_blank" rel="noopener noreferrer" className={styles.btn}>
+              <FileText size={14} /> Documento
+            </a>
+          )}
         </div>
-      </div>
+      </header>
+
+      {image && (
+        <div className={styles.cover}>
+          <img src={image} alt={title} />
+        </div>
+      )}
+
+      {longDescription && (
+        <div className={styles.content}>
+          {longDescription.split('\n\n').map((p, i) => <p key={i}>{p}</p>)}
+        </div>
+      )}
     </div>
   )
 }

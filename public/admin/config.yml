@@ -7,37 +7,43 @@ public_folder: "/images"
 
 collections:
   - name: "projects"
-    label: "Projects"
+    label: "Projetos"
     folder: "public/content/projects"
     create: true
     slug: "{{slug}}"
     fields:
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Category", name: "category", widget: "select", options: ["Web", "Mobile", "Design", "Open Source", "Other"] }
-      - { label: "Description", name: "description", widget: "text" }
-      - { label: "Long Description", name: "longDescription", widget: "markdown", required: false }
-      - { label: "Cover Image", name: "image", widget: "image", required: false }
-      - { label: "Live URL", name: "liveUrl", widget: "string", required: false }
-      - { label: "GitHub URL", name: "githubUrl", widget: "string", required: false }
-      - { label: "Technologies", name: "tags", widget: "list", required: false }
-      - { label: "Featured", name: "featured", widget: "boolean", default: false }
-      - { label: "Year", name: "year", widget: "string" }
-      - { label: "Document", name: "document", widget: "file", required: false, hint: "PDF or any document related to this project" }
-      - { label: "Status", name: "status", widget: "select", options: ["Live", "In Progress", "Archived"], default: "Live" }
-      - { label: "Order", name: "order", widget: "number", default: 0, hint: "Lower = shown first" }
+      - { label: "Título", name: "title", widget: "string" }
+      - label: "Tecnologias"
+        name: "tags"
+        widget: "select"
+        multiple: true
+        options: ["HTML", "CSS", "JavaScript", "React", "NodeJS", "C", "Python", "Supabase", "Clerk"]
+      - { label: "Descrição curta", name: "description", widget: "text" }
+      - { label: "Descrição completa", name: "longDescription", widget: "markdown", required: false }
+      - { label: "Imagem de capa", name: "image", widget: "image", required: false }
+      - { label: "URL do site", name: "liveUrl", widget: "string", required: false, hint: "Link para o site ao vivo (opcional)" }
+      - { label: "URL do GitHub", name: "githubUrl", widget: "string", required: false }
+      - { label: "Documento (PDF)", name: "document", widget: "file", required: false }
+      - { label: "Em destaque", name: "featured", widget: "boolean", default: false }
+      - { label: "Ano", name: "year", widget: "string" }
+      - label: "Estado"
+        name: "status"
+        widget: "select"
+        options: ["Ativo", "Em desenvolvimento", "Arquivado"]
+        default: "Ativo"
+      - { label: "Ordem", name: "order", widget: "number", default: 0 }
 
   - name: "settings"
-    label: "Site Settings"
+    label: "Definições do site"
     files:
-      - label: "About"
+      - label: "Sobre mim"
         name: "about"
         file: "public/content/about.json"
         fields:
-          - { label: "Name", name: "name", widget: "string" }
-          - { label: "Role", name: "role", widget: "string" }
+          - { label: "Nome", name: "name", widget: "string" }
+          - { label: "Função / Título", name: "role", widget: "string" }
           - { label: "Bio", name: "bio", widget: "text" }
           - { label: "Email", name: "email", widget: "string" }
           - { label: "GitHub", name: "github", widget: "string", required: false }
           - { label: "LinkedIn", name: "linkedin", widget: "string", required: false }
-          - { label: "Twitter", name: "twitter", widget: "string", required: false }
-          - { label: "Avatar", name: "avatar", widget: "image", required: false }
+          - { label: "Foto", name: "avatar", widget: "image", required: false }

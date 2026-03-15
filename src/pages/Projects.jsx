@@ -3,106 +3,70 @@ import { useProjects } from '../data/useContent'
 import ProjectCard from '../components/ProjectCard'
 import styles from './Projects.module.css'
 
-const CATEGORIES = ['Todos', 'Web', 'Mobile', 'Design', 'Open Source', 'Other']
-const STATUSES = ['Todos', 'Live', 'In Progress', 'Archived']
+const TECHS = ['Todos', 'HTML', 'CSS', 'JavaScript', 'React', 'NodeJS', 'C', 'Python', 'Supabase', 'Clerk']
 
 export default function Projects() {
   const { projects, loading } = useProjects()
-  const [category, setCategory] = useState('Todos')
-  const [status, setStatus] = useState('Todos')
+  const [tech, setTech] = useState('Todos')
   const [search, setSearch] = useState('')
 
   const filtered = projects.filter(p => {
-    const matchCat = category === 'Todos' || p.category === category
-    const matchStatus = status === 'Todos' || p.status === status
+    const matchTech = tech === 'Todos' || (p.tags || []).includes(tech)
     const q = search.toLowerCase()
-    const matchSearch = !q || p.title.toLowerCase().includes(q) ||
-      p.description.toLowerCase().includes(q) ||
-      (p.tags || []).some(t => t.toLowerCase().includes(q))
-    return matchCat && matchStatus && matchSearch
+    const matchSearch = !q || p.title.toLowerCase().includes(q) || p.description.toLowerCase().includes(q) || (p.tags||[]).some(t => t.toLowerCase().includes(q))
+    return matchTech && matchSearch
   })
 
   return (
     <div className={styles.page}>
-      <div className={styles.inner}>
-        {/* Header */}
-        <div className={styles.header}>
-          <p className={styles.label + ' mono'}>Todos os projetos</p>
-          <h1 className={styles.title}>Trabalho</h1>
-          <p className={styles.subtitle}>
-            Uma coleção dos projetos que construí — desde produtos lançados até experiências e explorações.
-          </p>
-        </div>
+      <div className={styles.header}>
+        <h1 className={styles.title}>Projetos</h1>
+        <p className={styles.subtitle}>Todos os projetos que desenvolvi.</p>
+      </div>
 
-        {/* Filters */}
-        <div className={styles.filters}>
-          <div className={styles.searchWrap}>
-            <input
-              type="text"
-              placeholder="Pesquisar projetos..."
-              value={search}
-              onChange={e => setSearch(e.target.value)}
-              className={styles.search + ' mono'}
-            />
-          </div>
-
-          <div className={styles.filterGroup}>
-            <span className={styles.filterLabel + ' mono'}>Categoria</span>
-            <div className={styles.pills}>
-              {CATEGORIES.map(c => (
-                <button
-                  key={c}
-                  onClick={() => setCategory(c)}
-                  className={`${styles.pill} mono ${category === c ? styles.active : ''}`}
-                >
-                  {c}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className={styles.filterGroup}>
-            <span className={styles.filterLabel + ' mono'}>Estado</span>
-            <div className={styles.pills}>
-              {STATUSES.map(s => (
-                <button
-                  key={s}
-                  onClick={() => setStatus(s)}
-                  className={`${styles.pill} mono ${status === s ? styles.active : ''}`}
-                >
-                  {s}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Results */}
-        <div className={styles.resultsBar}>
-          <span className={styles.count + ' mono'}>
-            {loading ? '...' : `${filtered.length} projeto${filtered.length !== 1 ? 's' : ''}`}
-          </span>
-        </div>
-
-        {loading ? (
-          <div className={styles.grid}>
-            {[1,2,3,4,5,6].map(i => (
-              <div key={i} className={styles.skeleton}></div>
-            ))}
-          </div>
-        ) : filtered.length > 0 ? (
-          <div className={styles.grid}>
-            {filtered.map(p => <ProjectCard key={p.slug} project={p} />)}
-          </div>
-        ) : (
-          <div className={styles.empty}>
-            <p>Nenhum projeto encontrado.</p>
-            <button onClick={() => { setCategory('Todos'); setStatus('Todos'); setSearch('') }} className={styles.resetBtn + ' mono'}>
-              Limpar filtros
+      <div className={styles.filters}>
+        <input
+          type="text" placeholder="Pesquisar..."
+          value={search} onChange={e => setSearch(e.target.value)}
+          className={styles.search}
+        />
+        <div className={styles.pills}>
+          {TECHS.map(t => (
+            <button key={t} onClick={() => setTech(t)}
+              className={`${styles.pill} ${tech === t ? styles.active : ''}`}>
+              {t}
             </button>
-          </div>
+          ))}
+        </div>
+      </div>
+
+      <div className={styles.resultsBar}>
+        <span className={styles.count}>
+          {loading ? '' : `${filtered.length} projeto${filtered.length !== 1 ? 's' : ''}`}
+        </span>
+        {(tech !== 'Todos' || search) && (
+          <button onClick={() => { setTech('Todos'); setSearch('') }} className={styles.clear}>
+            Limpar filtros ×
+          </button>
         )}
       </div>
+
+      {loading ? (
+        <div className={styles.grid}>
+          {[1,2,3,4,5,6].map(i => <div key={i} className={styles.skeleton} />)}
+        </div>
+      ) : filtered.length > 0 ? (
+        <div className={styles.grid}>
+          {filtered.map(p => <ProjectCard key={p.slug} project={p} />)}
+        </div>
+      ) : (
+        <div className={styles.empty}>
+          {projects.length === 0
+            ? <><p>Ainda não tens projetos.</p><a href="/admin/" className={styles.adminCta}>Adicionar no admin →</a></>
+            : <><p>Nenhum resultado.</p><button onClick={() => { setTech('Todos'); setSearch('') }} className={styles.adminCta}>Limpar filtros</button></>
+          }
+        </div>
+      )}
     </div>
   )
 }
