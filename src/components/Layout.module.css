@@ -2,69 +2,75 @@
 
 .header {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  background: rgba(255,255,255,0.9);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border);
+  padding: 0 32px;
+  transition: background 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease;
+  border-bottom: 1px solid transparent;
+}
+
+.header.scrolled {
+  background: rgba(12,12,14,0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-color: var(--border);
 }
 
 .nav {
   display: flex; align-items: center; justify-content: space-between;
-  max-width: 900px; margin: 0 auto; padding: 0 24px; height: 56px;
+  max-width: 1100px; margin: 0 auto; height: 64px; gap: 32px;
 }
 
-.logo {
-  font-weight: 600; font-size: 0.95rem; color: var(--text);
-  display: flex; align-items: center; gap: 6px;
+.brand {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none; flex-shrink: 0;
 }
 
-.logoDot {
-  width: 6px; height: 6px; background: var(--accent);
-  border-radius: 50%; flex-shrink: 0;
+.brandName {
+  font-family: var(--font-display);
+  font-size: 0.95rem; font-weight: 700;
+  color: var(--text); letter-spacing: -0.01em;
 }
 
-.links { display: flex; align-items: center; gap: 4px; }
+.links { display: flex; align-items: center; gap: 2px; }
 
-.links a {
-  font-size: 0.85rem; color: var(--text-2); padding: 6px 12px;
-  border-radius: var(--radius); transition: all var(--transition); font-weight: 400;
+.link {
+  font-size: 0.85rem; font-weight: 400; color: var(--text-2);
+  padding: 7px 14px; border-radius: var(--radius);
+  transition: all var(--transition); letter-spacing: 0.01em;
 }
+.link:hover { color: var(--text); background: var(--surface); }
+.link.active { color: var(--text); background: var(--surface); font-weight: 500; }
 
-.links a:hover { color: var(--text); background: var(--bg-3); }
-.links a.active { color: var(--text); background: var(--bg-3); font-weight: 500; }
+.menuBtn { display: none; color: var(--text-2); padding: 4px; transition: color var(--transition); }
+.menuBtn:hover { color: var(--text); }
 
-.menuBtn { display: none; color: var(--text-2); padding: 4px; }
-
-.main { flex: 1; padding-top: 56px; }
+.main { flex: 1; padding-top: 64px; }
 
 .footer {
-  border-top: 1px solid var(--border); padding: 20px 24px;
-  margin-top: auto;
+  border-top: 1px solid var(--border);
+  padding: 24px 32px; margin-top: 80px;
 }
-
 .footerInner {
-  max-width: 900px; margin: 0 auto;
+  max-width: 1100px; margin: 0 auto;
   display: flex; align-items: center; justify-content: space-between;
 }
-
-.footerLeft { font-size: 0.82rem; color: var(--text-3); }
-
-.adminLink {
-  font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-3);
-  padding: 4px 10px; border: 1px solid var(--border); border-radius: var(--radius);
-  transition: all var(--transition);
-}
-.adminLink:hover { color: var(--accent); border-color: var(--accent); }
+.footerLeft { display: flex; align-items: center; gap: 10px; }
+.footerName { font-family: var(--font-display); font-size: 0.82rem; color: var(--text-3); font-weight: 600; }
+.footerCopy { font-size: 0.78rem; color: var(--text-3); font-family: var(--font-mono); }
 
 @media (max-width: 640px) {
+  .header { padding: 0 20px; }
+  .brandName { display: none; }
   .menuBtn { display: flex; }
   .links {
-    position: fixed; top: 56px; left: 0; right: 0;
-    background: var(--bg); border-bottom: 1px solid var(--border);
-    flex-direction: column; align-items: stretch; padding: 8px 16px 16px;
-    transform: translateY(-10px); opacity: 0; pointer-events: none;
+    position: fixed; top: 64px; left: 0; right: 0;
+    background: var(--bg-2); border-bottom: 1px solid var(--border);
+    flex-direction: column; align-items: stretch;
+    padding: 8px 16px 16px;
+    opacity: 0; pointer-events: none; transform: translateY(-8px);
     transition: all 0.2s ease;
   }
-  .links.open { transform: translateY(0); opacity: 1; pointer-events: all; }
-  .links a { padding: 12px 8px; border-bottom: 1px solid var(--border); border-radius: 0; }
-  .links a:last-child { border-bottom: none; }
+  .links.open { opacity: 1; pointer-events: all; transform: translateY(0); }
+  .link { padding: 13px 8px; border-bottom: 1px solid var(--border); border-radius: 0; }
+  .link:last-child { border-bottom: none; }
+  .footer { padding: 20px; }
 }

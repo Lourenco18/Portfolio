@@ -2,32 +2,39 @@ import { Outlet, NavLink, useLocation } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { Menu, X } from 'lucide-react'
 import { useAbout } from '../data/useContent'
+import Logo from './Logo'
 import styles from './Layout.module.css'
 
 export default function Layout() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
   const about = useAbout()
   const location = useLocation()
 
   useEffect(() => setMenuOpen(false), [location])
+  useEffect(() => {
+    const fn = () => setScrolled(window.scrollY > 20)
+    window.addEventListener('scroll', fn)
+    return () => window.removeEventListener('scroll', fn)
+  }, [])
 
   return (
     <div className={styles.root}>
-      <header className={styles.header}>
+      <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
         <nav className={styles.nav}>
-          <NavLink to="/" className={styles.logo}>
-            {about?.name || 'Portfolio'}
-            <span className={styles.logoDot} />
+          <NavLink to="/" className={styles.brand}>
+            <Logo size={34} />
+            <span className={styles.brandName}>Daniel Lourenço</span>
           </NavLink>
 
           <div className={`${styles.links} ${menuOpen ? styles.open : ''}`}>
-            <NavLink to="/" end className={({ isActive }) => isActive ? styles.active : ''}>Início</NavLink>
-            <NavLink to="/projects" className={({ isActive }) => isActive ? styles.active : ''}>Projetos</NavLink>
-            <NavLink to="/about" className={({ isActive }) => isActive ? styles.active : ''}>Sobre</NavLink>
+            <NavLink to="/" end className={({ isActive }) => isActive ? `${styles.link} ${styles.active}` : styles.link}>Início</NavLink>
+            <NavLink to="/projects" className={({ isActive }) => isActive ? `${styles.link} ${styles.active}` : styles.link}>Projetos</NavLink>
+            <NavLink to="/about" className={({ isActive }) => isActive ? `${styles.link} ${styles.active}` : styles.link}>Sobre</NavLink>
           </div>
 
-          <button className={styles.menuBtn} onClick={() => setMenuOpen(v => !v)}>
-            {menuOpen ? <X size={18} /> : <Menu size={18} />}
+          <button className={styles.menuBtn} onClick={() => setMenuOpen(v => !v)} aria-label="Menu">
+            {menuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </nav>
       </header>
@@ -38,8 +45,11 @@ export default function Layout() {
 
       <footer className={styles.footer}>
         <div className={styles.footerInner}>
-          <span className={styles.footerLeft}>{about?.name} · {new Date().getFullYear()}</span>
-          <a href="/admin/" className={styles.adminLink}>admin ↗</a>
+          <div className={styles.footerLeft}>
+            <Logo size={22} />
+            <span className={styles.footerName}>Daniel Lourenço</span>
+          </div>
+          <span className={styles.footerCopy}>© {new Date().getFullYear()}</span>
         </div>
       </footer>
     </div>

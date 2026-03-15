@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { ArrowRight, Github, Linkedin, Mail } from 'lucide-react'
+import { ArrowRight, Github, Linkedin, Mail, ExternalLink } from 'lucide-react'
 import { useProjects, useAbout } from '../data/useContent'
 import ProjectCard from '../components/ProjectCard'
 import styles from './Home.module.css'
@@ -12,12 +12,23 @@ export default function Home() {
 
   return (
     <div className={styles.page}>
-      {/* Hero */}
+
+      {/* ── HERO ── */}
       <section className={styles.hero}>
-        <div className={styles.heroInner}>
-          <h1 className={styles.name}>{about?.name || 'O teu nome'}</h1>
-          <p className={styles.role}>{about?.role || 'Developer'}</p>
-          {about?.bio && <p className={styles.bio}>{about.bio}</p>}
+        <div className={styles.heroContent}>
+          <div className={styles.badge}>
+            <span className={styles.badgeDot} />
+            Disponível para trabalhar
+          </div>
+
+          <h1 className={styles.heroTitle}>
+            <span className={styles.heroHi}>Olá, sou</span>
+            <span className={styles.heroName}>Daniel<br />Lourenço</span>
+          </h1>
+
+          <p className={styles.heroRole}>{about?.role || 'Developer'}</p>
+
+          {about?.bio && <p className={styles.heroBio}>{about.bio}</p>}
 
           <div className={styles.heroActions}>
             <Link to="/projects" className={styles.btnPrimary}>
@@ -30,61 +41,79 @@ export default function Home() {
             )}
           </div>
 
-          <div className={styles.socials}>
+          <div className={styles.heroLinks}>
             {about?.github && (
-              <a href={about.github} target="_blank" rel="noopener noreferrer" className={styles.socialLink}>
-                <Github size={16} /> GitHub
+              <a href={about.github} target="_blank" rel="noopener noreferrer" className={styles.socialChip}>
+                <Github size={14} /> GitHub <ExternalLink size={11} className={styles.ext} />
               </a>
             )}
             {about?.linkedin && (
-              <a href={about.linkedin} target="_blank" rel="noopener noreferrer" className={styles.socialLink}>
-                <Linkedin size={16} /> LinkedIn
+              <a href={about.linkedin} target="_blank" rel="noopener noreferrer" className={styles.socialChip}>
+                <Linkedin size={14} /> LinkedIn <ExternalLink size={11} className={styles.ext} />
               </a>
             )}
             {about?.email && (
-              <a href={`mailto:${about.email}`} className={styles.socialLink}>
-                <Mail size={16} /> Email
+              <a href={`mailto:${about.email}`} className={styles.socialChip}>
+                <Mail size={14} /> Email
               </a>
             )}
           </div>
         </div>
+
+        {/* Photo */}
+        <div className={styles.heroPhoto}>
+          <div className={styles.photoRing} />
+          {about?.avatar ? (
+            <img src={about.avatar} alt="Daniel Lourenço" className={styles.photo} />
+          ) : (
+            <div className={styles.photoPlaceholder}>
+              <span>DL</span>
+            </div>
+          )}
+          <div className={styles.photoGlow} />
+        </div>
       </section>
 
-      {/* Projects */}
-      {(loading || recent.length > 0) && (
-        <section className={styles.section}>
-          <div className={styles.sectionHead}>
+      {/* ── DIVIDER ── */}
+      <div className={styles.divider} />
+
+      {/* ── PROJECTS ── */}
+      <section className={styles.section}>
+        <div className={styles.sectionHead}>
+          <div>
+            <p className={styles.sectionLabel}>Trabalho selecionado</p>
             <h2 className={styles.sectionTitle}>
               {featured.length ? 'Em destaque' : 'Projetos recentes'}
             </h2>
-            <Link to="/projects" className={styles.seeAll}>
-              Ver todos <ArrowRight size={13} />
-            </Link>
           </div>
+          <Link to="/projects" className={styles.seeAll}>
+            Ver todos <ArrowRight size={14} />
+          </Link>
+        </div>
 
-          {loading ? (
-            <div className={styles.grid}>
-              {[1,2,3].map(i => <div key={i} className={styles.skeleton} />)}
-            </div>
-          ) : (
-            <div className={styles.grid}>
-              {recent.map(p => <ProjectCard key={p.slug} project={p} />)}
-            </div>
-          )}
-        </section>
-      )}
-
-      {/* Empty state */}
-      {!loading && projects.length === 0 && (
-        <section className={styles.section}>
+        {loading ? (
+          <div className={styles.grid}>
+            {[1,2,3].map(i => <div key={i} className={styles.skeleton} />)}
+          </div>
+        ) : recent.length > 0 ? (
+          <div className={styles.grid}>
+            {recent.map(p => <ProjectCard key={p.slug} project={p} />)}
+          </div>
+        ) : (
           <div className={styles.empty}>
-            <p>Ainda não tens projetos.</p>
-            <a href="/admin/" className={styles.adminCta}>
-              Adicionar projetos no painel admin →
-            </a>
+            <p>Ainda não tens projetos adicionados.</p>
+            <p className={styles.emptyHint}>Adiciona os teus projetos em <code>/admin/</code></p>
           </div>
-        </section>
-      )}
+        )}
+      </section>
+
+      {/* ── TECH STRIP ── */}
+      <div className={styles.techStrip}>
+        {['HTML','CSS','JavaScript','React','NodeJS','Python','C','Supabase','Clerk'].map(t => (
+          <span key={t} className={styles.techItem}>{t}</span>
+        ))}
+      </div>
+
     </div>
   )
 }

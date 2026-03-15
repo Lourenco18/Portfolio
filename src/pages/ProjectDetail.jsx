@@ -4,15 +4,15 @@ import { ExternalLink, Github, ArrowLeft, FileText } from 'lucide-react'
 import styles from './ProjectDetail.module.css'
 
 const TECH_COLORS = {
-  'HTML':       { bg: '#fff4ed', color: '#c2410c' },
-  'CSS':        { bg: '#eff6ff', color: '#1d4ed8' },
-  'JavaScript': { bg: '#fefce8', color: '#92400e' },
-  'React':      { bg: '#f0f9ff', color: '#0369a1' },
-  'NodeJS':     { bg: '#f0fdf4', color: '#15803d' },
-  'C':          { bg: '#faf5ff', color: '#7e22ce' },
-  'Python':     { bg: '#fefce8', color: '#854d0e' },
-  'Supabase':   { bg: '#f0fdf4', color: '#065f46' },
-  'Clerk':      { bg: '#fdf4ff', color: '#86198f' },
+  'HTML':       { bg:'rgba(234,88,12,0.12)',  color:'#f97316' },
+  'CSS':        { bg:'rgba(59,130,246,0.12)', color:'#60a5fa' },
+  'JavaScript': { bg:'rgba(234,179,8,0.12)',  color:'#facc15' },
+  'React':      { bg:'rgba(14,165,233,0.12)', color:'#38bdf8' },
+  'NodeJS':     { bg:'rgba(34,197,94,0.12)',  color:'#4ade80' },
+  'C':          { bg:'rgba(168,85,247,0.12)', color:'#c084fc' },
+  'Python':     { bg:'rgba(251,191,36,0.12)', color:'#fbbf24' },
+  'Supabase':   { bg:'rgba(52,211,153,0.12)', color:'#34d399' },
+  'Clerk':      { bg:'rgba(232,121,249,0.12)',color:'#e879f9' },
 }
 
 export default function ProjectDetail() {
@@ -24,21 +24,19 @@ export default function ProjectDetail() {
   if (!project) return (
     <div className={styles.state}>
       <p>Projeto não encontrado.</p>
-      <Link to="/projects" className={styles.back}>← Voltar</Link>
+      <Link to="/projects" className={styles.stateLink}>← Voltar aos projetos</Link>
     </div>
   )
 
-  const { title, description, longDescription, image, liveUrl, githubUrl, tags = [], status, year, document } = project
+  const { title, description, longDescription, image, liveUrl, githubUrl, tags=[], status, year, document } = project
 
   return (
     <div className={styles.page}>
-      <Link to="/projects" className={styles.backLink}>
-        <ArrowLeft size={14} /> Projetos
-      </Link>
+      <Link to="/projects" className={styles.back}><ArrowLeft size={14} /> Projetos</Link>
 
       <header className={styles.header}>
         <div className={styles.meta}>
-          <span className={styles.year}>{year}</span>
+          {year && <span className={styles.year}>{year}</span>}
           {status && <span className={styles.status}>{status}</span>}
         </div>
 
@@ -48,15 +46,15 @@ export default function ProjectDetail() {
         {tags.length > 0 && (
           <div className={styles.tags}>
             {tags.map(t => {
-              const c = TECH_COLORS[t] || { bg: '#f3f4f6', color: '#374151' }
-              return <span key={t} className={styles.tag} style={{ background: c.bg, color: c.color }}>{t}</span>
+              const c = TECH_COLORS[t] || { bg:'rgba(255,255,255,0.06)', color:'var(--text-2)' }
+              return <span key={t} className={styles.tag} style={{ background:c.bg, color:c.color }}>{t}</span>
             })}
           </div>
         )}
 
         <div className={styles.actions}>
           {liveUrl && (
-            <a href={liveUrl} target="_blank" rel="noopener noreferrer" className={`${styles.btn} ${styles.btnPrimary}`}>
+            <a href={liveUrl} target="_blank" rel="noopener noreferrer" className={`${styles.btn} ${styles.btnAccent}`}>
               <ExternalLink size={14} /> Ver site ao vivo
             </a>
           )}
@@ -74,9 +72,7 @@ export default function ProjectDetail() {
       </header>
 
       {image && (
-        <div className={styles.cover}>
-          <img src={image} alt={title} />
-        </div>
+        <div className={styles.cover}><img src={image} alt={title} /></div>
       )}
 
       {longDescription && (

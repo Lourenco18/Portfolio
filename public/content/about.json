@@ -1,10 +1,9 @@
 {
   "name": "Daniel Lourenço",
-  "role": "Student at 42 Porto",
-  "bio": "Crio produtos digitais com foco em performance, design e experiência do utilizador. Apaixonado por código limpo e interfaces memoráveis.",
-  "email": "contact.lourenco18@gmail.com",
-  "github": "https://github.com/Lourenco18",
-  "linkedin": "https://www.linkedin.com/in/daniel-lourenço-1299a4386?utm_source=share_via&utm_content=profile&utm_medium=member_ios",
-  "twitter": "",
-  "avatar": "/images/dasantos.jpg"
+  "role": "Full-Stack Developer",
+  "bio": "Desenvolvo aplicações web e mobile com foco em performance e experiência do utilizador.",
+  "email": "email@exemplo.com",
+  "github": "https://github.com/lourenco18",
+  "linkedin": "",
+  "avatar": ""
 }
