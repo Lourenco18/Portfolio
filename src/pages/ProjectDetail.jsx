@@ -15,16 +15,22 @@ const TECH_COLORS = {
   'Clerk':      { bg:'rgba(232,121,249,0.12)',color:'#e879f9' },
 }
 
+const STATUS_MAP = {
+  'Ativo':              'Active',
+  'Em desenvolvimento': 'In Progress',
+  'Arquivado':          'Archived',
+}
+
 export default function ProjectDetail() {
   const { slug } = useParams()
   const { projects, loading } = useProjects()
   const project = projects.find(p => p.slug === slug)
 
-  if (loading) return <div className={styles.state}>A carregar...</div>
+  if (loading) return <div className={styles.state}>Loading...</div>
   if (!project) return (
     <div className={styles.state}>
-      <p>Projeto não encontrado.</p>
-      <Link to="/projects" className={styles.stateLink}>← Voltar aos projetos</Link>
+      <p>Project not found.</p>
+      <Link to="/projects" className={styles.stateLink}>← Back to projects</Link>
     </div>
   )
 
@@ -32,12 +38,12 @@ export default function ProjectDetail() {
 
   return (
     <div className={styles.page}>
-      <Link to="/projects" className={styles.back}><ArrowLeft size={14} /> Projetos</Link>
+      <Link to="/projects" className={styles.back}><ArrowLeft size={14} /> Projects</Link>
 
       <header className={styles.header}>
         <div className={styles.meta}>
           {year && <span className={styles.year}>{year}</span>}
-          {status && <span className={styles.status}>{status}</span>}
+          {status && <span className={styles.status}>{STATUS_MAP[status] || status}</span>}
         </div>
 
         <h1 className={styles.title}>{title}</h1>
@@ -55,7 +61,7 @@ export default function ProjectDetail() {
         <div className={styles.actions}>
           {liveUrl && (
             <a href={liveUrl} target="_blank" rel="noopener noreferrer" className={`${styles.btn} ${styles.btnAccent}`}>
-              <ExternalLink size={14} /> Ver site ao vivo
+              <ExternalLink size={14} /> Live site
             </a>
           )}
           {githubUrl && (
@@ -65,7 +71,7 @@ export default function ProjectDetail() {
           )}
           {document && (
             <a href={document} target="_blank" rel="noopener noreferrer" className={styles.btn}>
-              <FileText size={14} /> Documento
+              <FileText size={14} /> Document
             </a>
           )}
         </div>

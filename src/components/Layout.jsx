@@ -28,9 +28,9 @@ export default function Layout() {
           </NavLink>
 
           <div className={`${styles.links} ${menuOpen ? styles.open : ''}`}>
-            <NavLink to="/" end className={({ isActive }) => isActive ? `${styles.link} ${styles.active}` : styles.link}>Início</NavLink>
-            <NavLink to="/projects" className={({ isActive }) => isActive ? `${styles.link} ${styles.active}` : styles.link}>Projetos</NavLink>
-            <NavLink to="/about" className={({ isActive }) => isActive ? `${styles.link} ${styles.active}` : styles.link}>Sobre</NavLink>
+            <NavLink to="/" end className={({ isActive }) => isActive ? `${styles.link} ${styles.active}` : styles.link}>Home</NavLink>
+            <NavLink to="/projects" className={({ isActive }) => isActive ? `${styles.link} ${styles.active}` : styles.link}>Projects</NavLink>
+            <NavLink to="/about" className={({ isActive }) => isActive ? `${styles.link} ${styles.active}` : styles.link}>About</NavLink>
           </div>
 
           <button className={styles.menuBtn} onClick={() => setMenuOpen(v => !v)} aria-label="Menu">

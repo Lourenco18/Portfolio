@@ -18,11 +18,11 @@ export default function Home() {
         <div className={styles.heroContent}>
           <div className={styles.badge}>
             <span className={styles.badgeDot} />
-            Disponível para trabalhar
+            Available for work
           </div>
 
           <h1 className={styles.heroTitle}>
-            <span className={styles.heroHi}>Olá, sou</span>
+            <span className={styles.heroHi}>Hi, I'm</span>
             <span className={styles.heroName}>Daniel<br />Lourenço</span>
           </h1>
 
@@ -32,11 +32,11 @@ export default function Home() {
 
           <div className={styles.heroActions}>
             <Link to="/projects" className={styles.btnPrimary}>
-              Ver projetos <ArrowRight size={15} />
+              View projects <ArrowRight size={15} />
             </Link>
             {about?.email && (
               <a href={`mailto:${about.email}`} className={styles.btnSecondary}>
-                Contacto
+                Contact
               </a>
             )}
           </div>
@@ -81,13 +81,13 @@ export default function Home() {
       <section className={styles.section}>
         <div className={styles.sectionHead}>
           <div>
-            <p className={styles.sectionLabel}>Trabalho selecionado</p>
+            <p className={styles.sectionLabel}>Selected work</p>
             <h2 className={styles.sectionTitle}>
-              {featured.length ? 'Em destaque' : 'Projetos recentes'}
+              {featured.length ? 'Featured' : 'Recent projects'}
             </h2>
           </div>
           <Link to="/projects" className={styles.seeAll}>
-            Ver todos <ArrowRight size={14} />
+            View all <ArrowRight size={14} />
           </Link>
         </div>
 
@@ -101,8 +101,8 @@ export default function Home() {
           </div>
         ) : (
           <div className={styles.empty}>
-            <p>Ainda não tens projetos adicionados.</p>
-            <p className={styles.emptyHint}>Adiciona os teus projetos em <code>/admin/</code></p>
+            <p>No projects added yet.</p>
+            <p className={styles.emptyHint}>Add your projects at <code>/admin/</code></p>
           </div>
         )}
       </section>

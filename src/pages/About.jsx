@@ -22,7 +22,6 @@ export default function About() {
   return (
     <div className={styles.page}>
 
-      {/* Profile */}
       <section className={styles.profile}>
         <div className={styles.avatarWrap}>
           {about?.avatar
@@ -57,12 +56,11 @@ export default function About() {
         </div>
       </section>
 
-      {/* Stats */}
       <div className={styles.stats}>
         {[
-          { num: projects.length, label: 'Projetos' },
-          { num: projects.filter(p => p.status === 'Ativo').length, label: 'Ativos' },
-          { num: allTags.length, label: 'Tecnologias' },
+          { num: projects.length, label: 'Projects' },
+          { num: projects.filter(p => p.status === 'Ativo').length, label: 'Active' },
+          { num: allTags.length, label: 'Technologies' },
         ].map(({ num, label }) => (
           <div key={label} className={styles.stat}>
             <span className={styles.statNum}>{num}</span>
@@ -71,10 +69,9 @@ export default function About() {
         ))}
       </div>
 
-      {/* Tech */}
       {allTags.length > 0 && (
         <section className={styles.section}>
-          <h2 className={styles.sectionTitle}>Tecnologias</h2>
+          <h2 className={styles.sectionTitle}>Technologies</h2>
           <div className={styles.tags}>
             {allTags.map(t => {
               const c = TECH_COLORS[t] || { bg:'rgba(255,255,255,0.06)', color:'var(--text-2)' }
