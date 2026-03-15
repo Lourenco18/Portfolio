@@ -1,1 +1,36 @@
-[]
+[
+  {
+    "title": "42 Common core",
+    "tags": [
+      "C",
+      "Python"
+    ],
+    "description": "42 full Course",
+    "longDescription": "\n\n### Common Core: Torna-te um software developer júnior\n\nAprende os fundamentos da programação\n\nConstrói um portfólio próprio de projetos\n\nTesta as competências adquiridas numa experiência profissional remunerada\n\nAprende no teu próprio ritmo\n\n[Áreas de especialidade](<>)\n\n* Programação imperativa em C\n* Programação Orientada a Objetos em Python\n* Estruturas de Dados e Algoritmos\n* Inteligência Artificial\n* Programação concorrente\n* Programação de redes\n* Administração de Redes e Sistemas.\n* Programação gráfica",
+    "image": "/images/images.png",
+    "liveUrl": "https://www.42porto.com/pt/",
+    "githubUrl": "https://github.com/Lourenco18/42-Common-core",
+    "featured": false,
+    "year": "2025",
+    "status": "Em desenvolvimento",
+    "order": 0,
+    "slug": "42-common-core-1"
+  },
+  {
+    "title": "42 Common core",
+    "tags": [
+      "C",
+      "Python"
+    ],
+    "description": "42 full Course",
+    "longDescription": "\n\n### Common Core: Torna-te um software developer júnior\n\nAprende os fundamentos da programação\n\nConstrói um portfólio próprio de projetos\n\nTesta as competências adquiridas numa experiência profissional remunerada\n\nAprende no teu próprio ritmo\n\n[Áreas de especialidade](<>)\n\n* Programação imperativa em C\n* Programação Orientada a Objetos em Python\n* Estruturas de Dados e Algoritmos\n* Inteligência Artificial\n* Programação concorrente\n* Programação de redes\n* Administração de Redes e Sistemas.\n* Programação gráfica",
+    "image": "/images/images.png",
+    "liveUrl": "https://www.42porto.com/pt/",
+    "githubUrl": "https://github.com/Lourenco18/42-Common-core",
+    "featured": false,
+    "year": "2025",
+    "status": "Em desenvolvimento",
+    "order": 0,
+    "slug": "42-common-core"
+  }
+]
