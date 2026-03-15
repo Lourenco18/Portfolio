@@ -1,6 +1,8 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: lourenco18/portfolio
   branch: main
+  auth_scope: repo
 
 media_folder: "public/images"
 public_folder: "/images"
@@ -11,6 +13,8 @@ collections:
     folder: "public/content/projects"
     create: true
     slug: "{{slug}}"
+    extension: "json"
+    format: "json"
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - label: "Technologies"
@@ -47,4 +51,4 @@ collections:
           - { label: "GitHub", name: "github", widget: "string", required: false }
           - { label: "LinkedIn", name: "linkedin", widget: "string", required: false }
           - { label: "Photo", name: "avatar", widget: "image", required: false }
-          - { label: "CV / Resume (PDF)", name: "cv", widget: "file", required: false, hint: "Upload your CV as a PDF" }
+          - { label: "CV / Resume (PDF)", name: "cv", widget: "file", required: false }

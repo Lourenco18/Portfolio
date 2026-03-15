@@ -1,0 +1,14 @@
+{
+  "title": "42 Common Core",
+  "tags": ["C", "Python"],
+  "description": "42 full course — learning systems programming and algorithms from scratch.",
+  "longDescription": "The 42 Common Core is a rigorous software engineering curriculum focused on peer-to-peer learning. Projects cover imperative programming in C, object-oriented programming in Python, data structures, algorithms, AI, concurrent programming, network programming, systems administration, and graphical programming.",
+  "image": "/images/images.png",
+  "liveUrl": "https://www.42porto.com/pt/",
+  "githubUrl": "https://github.com/Lourenco18/42-Common-core",
+  "featured": true,
+  "year": "2025",
+  "status": "Em desenvolvimento",
+  "order": 0,
+  "slug": "42-common-core"
+}

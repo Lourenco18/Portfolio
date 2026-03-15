@@ -1,0 +1,76 @@
+.root { min-height: 100vh; display: flex; flex-direction: column; }
+
+.header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 0 32px;
+  transition: background 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease;
+  border-bottom: 1px solid transparent;
+}
+
+.header.scrolled {
+  background: rgba(12,12,14,0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-color: var(--border);
+}
+
+.nav {
+  display: flex; align-items: center; justify-content: space-between;
+  max-width: 1100px; margin: 0 auto; height: 64px; gap: 32px;
+}
+
+.brand {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none; flex-shrink: 0;
+}
+
+.brandName {
+  font-family: var(--font-display);
+  font-size: 0.95rem; font-weight: 700;
+  color: var(--text); letter-spacing: -0.01em;
+}
+
+.links { display: flex; align-items: center; gap: 2px; }
+
+.link {
+  font-size: 0.85rem; font-weight: 400; color: var(--text-2);
+  padding: 7px 14px; border-radius: var(--radius);
+  transition: all var(--transition); letter-spacing: 0.01em;
+}
+.link:hover { color: var(--text); background: var(--surface); }
+.link.active { color: var(--text); background: var(--surface); font-weight: 500; }
+
+.menuBtn { display: none; color: var(--text-2); padding: 4px; transition: color var(--transition); }
+.menuBtn:hover { color: var(--text); }
+
+.main { flex: 1; padding-top: 64px; }
+
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 24px 32px; margin-top: 80px;
+}
+.footerInner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.footerLeft { display: flex; align-items: center; gap: 10px; }
+.footerName { font-family: var(--font-display); font-size: 0.82rem; color: var(--text-3); font-weight: 600; }
+.footerCopy { font-size: 0.78rem; color: var(--text-3); font-family: var(--font-mono); }
+
+@media (max-width: 640px) {
+  .header { padding: 0 20px; }
+  .brandName { display: none; }
+  .menuBtn { display: flex; }
+  .links {
+    position: fixed; top: 64px; left: 0; right: 0;
+    background: var(--bg-2); border-bottom: 1px solid var(--border);
+    flex-direction: column; align-items: stretch;
+    padding: 8px 16px 16px;
+    opacity: 0; pointer-events: none; transform: translateY(-8px);
+    transition: all 0.2s ease;
+  }
+  .links.open { opacity: 1; pointer-events: all; transform: translateY(0); }
+  .link { padding: 13px 8px; border-bottom: 1px solid var(--border); border-radius: 0; }
+  .link:last-child { border-bottom: none; }
+  .footer { padding: 20px; }
+}
