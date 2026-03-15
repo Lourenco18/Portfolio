@@ -1,0 +1,43 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "public/images"
+public_folder: "/images"
+
+collections:
+  - name: "projects"
+    label: "Projects"
+    folder: "public/content/projects"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Category", name: "category", widget: "select", options: ["Web", "Mobile", "Design", "Open Source", "Other"] }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Long Description", name: "longDescription", widget: "markdown", required: false }
+      - { label: "Cover Image", name: "image", widget: "image", required: false }
+      - { label: "Live URL", name: "liveUrl", widget: "string", required: false }
+      - { label: "GitHub URL", name: "githubUrl", widget: "string", required: false }
+      - { label: "Technologies", name: "tags", widget: "list", required: false }
+      - { label: "Featured", name: "featured", widget: "boolean", default: false }
+      - { label: "Year", name: "year", widget: "string" }
+      - { label: "Document", name: "document", widget: "file", required: false, hint: "PDF or any document related to this project" }
+      - { label: "Status", name: "status", widget: "select", options: ["Live", "In Progress", "Archived"], default: "Live" }
+      - { label: "Order", name: "order", widget: "number", default: 0, hint: "Lower = shown first" }
+
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - label: "About"
+        name: "about"
+        file: "public/content/about.json"
+        fields:
+          - { label: "Name", name: "name", widget: "string" }
+          - { label: "Role", name: "role", widget: "string" }
+          - { label: "Bio", name: "bio", widget: "text" }
+          - { label: "Email", name: "email", widget: "string" }
+          - { label: "GitHub", name: "github", widget: "string", required: false }
+          - { label: "LinkedIn", name: "linkedin", widget: "string", required: false }
+          - { label: "Twitter", name: "twitter", widget: "string", required: false }
+          - { label: "Avatar", name: "avatar", widget: "image", required: false }
